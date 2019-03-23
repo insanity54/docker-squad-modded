@@ -2,7 +2,6 @@
 FROM cm2network/steamcmd
 
 WORKDIR /
-VOLUME /home/steam/squad-dedicated
 
 COPY ./Admins.cfg ./MapRotation.cfg ./Server.cfg /home/steam/squad-dedicated/Squad/ServerConfig/
 RUN ls -la /home/steam/squad-dedicated/Squad/ServerConfig
