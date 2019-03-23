@@ -1,7 +1,8 @@
 
 FROM cm2network/steamcmd
 
-WORKDIR /home/steam/squad-dedicated/
+WORKDIR /
+VOLUME /home/steam/squad-dedicated
 
 COPY ./Admins.cfg ./MapRotation.cfg ./Server.cfg /home/steam/squad-dedicated/Squad/ServerConfig/
 
@@ -30,7 +31,6 @@ RUN /home/steam/steamcmd/steamcmd.sh +login anonymous \
 ENV PORT=7787 QUERYPORT=27165 RCONPORT=21114 RCONPASSWORD=hackmeharder RCONIP=0.0.0.0 FIXEDMAXPLAYERS=80 RANDOM=NONE
 
 
-VOLUME /home/steam/squad-dedicated
 
 
 ENTRYPOINT /home/steam/squad-dedicated/SquadServer.sh Port=$PORT QueryPort=$QUERYPORT RCONPORT=$RCONPORT RCONPASSWORD=$RCONPASSWORD RCONIP=$RCONIP FIXEDMAXPLAYERS=$FIXEDMAXPLAYERS RANDOM=$RANDOM
