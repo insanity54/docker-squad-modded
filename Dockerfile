@@ -1,7 +1,9 @@
-############################################################
-# Dockerfile that builds a Squad Gameserver
-############################################################
+
 FROM cm2network/steamcmd
+
+WORKDIR /home/steam/squad-dedicated/
+
+COPY ./Admins.cfg ./MapRotation.cfg ./Server.cfg /home/steam/squad-dedicated/Squad/ServerConfig/
 
 # Run Steamcmd and install Squad
 # Steam game id 403240 is Squad Dedicated Server
@@ -10,7 +12,6 @@ RUN ./home/steam/steamcmd/steamcmd.sh +login anonymous \
         +app_update 403240 validate \
         +quit
 
-
 # Run Steamcmd and install mods
 # Steam game ID 393380 is Squad
 # 1313956617 - Karkand (https://steamcommunity.com/sharedfiles/filedetails/?id=1313956617)
@@ -18,16 +19,18 @@ RUN ./home/steam/steamcmd/steamcmd.sh +login anonymous \
   +force_install_dir /home/steam/squad-dedicated \
   +workshop_download_item 393380 1313956617 +quit
 
+
 # 205163003 - Helicopter Test (https://steamcommunity.com/sharedfiles/filedetails/?id=1205163003)
 RUN ./home/steam/steamcmd/steamcmd.sh +login anonymous \
   +force_install_dir /home/steam/squad-dedicated \
   +workshop_download_item 393380 1205163003 +quit
 
 
-ENV PORT=7787 QUERYPORT=27165 RCONPORT=21114 RCONPASSWORD=hackme RCONIP=0.0.0.0 FIXEDMAXPLAYERS=80 RANDOM=NONE
+# Set default env variables
+ENV PORT=7787 QUERYPORT=27165 RCONPORT=21114 RCONPASSWORD=hackmeharder RCONIP=0.0.0.0 FIXEDMAXPLAYERS=80 RANDOM=NONE
+
 
 VOLUME /home/steam/squad-dedicated
 
-# Set Entrypoint; Technically 2 steps: 1. Update server, 2. Start server
-ENTRYPOINT ./home/steam/steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/steam/squad-dedicated +app_update 403240 +quit && \
-        ./home/steam/squad-dedicated/SquadServer.sh Port=$PORT QueryPort=$QUERYPORT RCONPORT=$RCONPORT RCONPASSWORD=$RCONPASSWORD RCONIP=$RCONIP FIXEDMAXPLAYERS=$FIXEDMAXPLAYERS RANDOM=$RANDOM
+
+ENTRYPOINT /home/steam/squad-dedicated/SquadServer.sh Port=$PORT QueryPort=$QUERYPORT RCONPORT=$RCONPORT RCONPASSWORD=$RCONPASSWORD RCONIP=$RCONIP FIXEDMAXPLAYERS=$FIXEDMAXPLAYERS RANDOM=$RANDOM
