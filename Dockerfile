@@ -3,8 +3,6 @@ FROM cm2network/steamcmd
 
 WORKDIR /
 
-COPY ./Admins.cfg ./MapRotation.cfg ./Server.cfg /home/steam/squad-dedicated/Squad/ServerConfig/
-RUN ls -la /home/steam/squad-dedicated/Squad/ServerConfig
 
 # Run Steamcmd and install Squad
 # Steam game id 403240 is Squad Dedicated Server
@@ -31,6 +29,8 @@ RUN /home/steam/steamcmd/steamcmd.sh +login anonymous \
 ENV PORT=7787 QUERYPORT=27165 RCONPORT=21114 RCONPASSWORD=hackmeharder RCONIP=0.0.0.0 FIXEDMAXPLAYERS=80 RANDOM=NONE
 
 
+COPY ./Admins.cfg ./MapRotation.cfg ./Server.cfg /home/steam/squad-dedicated/Squad/ServerConfig/
+RUN ls -la /home/steam/squad-dedicated/Squad/ServerConfig
 
 
 ENTRYPOINT /home/steam/squad-dedicated/SquadServer.sh Port=$PORT QueryPort=$QUERYPORT RCONPORT=$RCONPORT RCONPASSWORD=$RCONPASSWORD RCONIP=$RCONIP FIXEDMAXPLAYERS=$FIXEDMAXPLAYERS RANDOM=$RANDOM
