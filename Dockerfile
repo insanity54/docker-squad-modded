@@ -5,6 +5,7 @@ WORKDIR /
 VOLUME /home/steam/squad-dedicated
 
 COPY ./Admins.cfg ./MapRotation.cfg ./Server.cfg /home/steam/squad-dedicated/Squad/ServerConfig/
+RUN ls -la /home/steam/squad-dedicated/Squad/ServerConfig
 
 # Run Steamcmd and install Squad
 # Steam game id 403240 is Squad Dedicated Server
