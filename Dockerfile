@@ -7,7 +7,7 @@ COPY ./Admins.cfg ./MapRotation.cfg ./Server.cfg /home/steam/squad-dedicated/Squ
 
 # Run Steamcmd and install Squad
 # Steam game id 403240 is Squad Dedicated Server
-RUN ./home/steam/steamcmd/steamcmd.sh +login anonymous \
+RUN /home/steam/steamcmd/steamcmd.sh +login anonymous \
         +force_install_dir /home/steam/squad-dedicated \
         +app_update 403240 validate \
         +quit
@@ -15,13 +15,13 @@ RUN ./home/steam/steamcmd/steamcmd.sh +login anonymous \
 # Run Steamcmd and install mods
 # Steam game ID 393380 is Squad
 # 1313956617 - Karkand (https://steamcommunity.com/sharedfiles/filedetails/?id=1313956617)
-RUN ./home/steam/steamcmd/steamcmd.sh +login anonymous \
+RUN /home/steam/steamcmd/steamcmd.sh +login anonymous \
   +force_install_dir /home/steam/squad-dedicated \
   +workshop_download_item 393380 1313956617 +quit
 
 
 # 205163003 - Helicopter Test (https://steamcommunity.com/sharedfiles/filedetails/?id=1205163003)
-RUN ./home/steam/steamcmd/steamcmd.sh +login anonymous \
+RUN /home/steam/steamcmd/steamcmd.sh +login anonymous \
   +force_install_dir /home/steam/squad-dedicated \
   +workshop_download_item 393380 1205163003 +quit
 
